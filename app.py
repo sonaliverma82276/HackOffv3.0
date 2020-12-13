@@ -20,8 +20,8 @@ app = Flask(__name__)
 
 model = torch.load("hack909.pth")
 model.eval()
-def model_predict(img_path, model):
-    image = Image.open(img_path)
+def model_predict(file, model):
+    image = Image.open(file)
     image = np.array(image)
     transforms = aug.Compose([
             aug.Resize(224,224),
@@ -47,14 +47,9 @@ def upload():
         # Get the file from post request
         f = request.files['file']
         labs=['AFIB','AFL','APB','Bigeminy','Fusion','IVR','LBBBB','NSR','PR','PVC','RBBBB','SDHB','SVTA','Trigeminy','VFL','VT','WPW']
-        # Save the file to ./uploads
-        basepath = os.path.dirname(__file__)
-        file_path = os.path.join(
-            basepath, 'uploads', secure_filename(f.filename))
-        f.save(file_path)
         
         # Make prediction
-        preds = model_predict(file_path, model)
+        preds = model_predict(f, model)
         result = labs[preds]            
         return result
     return None
