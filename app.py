@@ -35,24 +35,22 @@ def model_predict(file, model):
     return preds
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
     # Main page
     return render_template('index.html')
 
 
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/predict', methods=['POST'])
 def upload():
-    if request.method == 'POST':
-        # Get the file from post request
-        f = request.files['file']
-        labs=['AFIB','AFL','APB','Bigeminy','Fusion','IVR','LBBBB','NSR','PR','PVC','RBBBB','SDHB','SVTA','Trigeminy','VFL','VT','WPW']
-        
-        # Make prediction
-        preds = model_predict(f, model)
-        result = labs[preds]            
-        return result
-    return None
+    # Get the file from post request
+    f = request.files['file']
+    labs=['AFIB','AFL','APB','Bigeminy','Fusion','IVR','LBBBB','NSR','PR','PVC','RBBBB','SDHB','SVTA','Trigeminy','VFL','VT','WPW']
+
+    # Make prediction
+    preds = model_predict(f, model)
+    result = labs[preds]            
+    return result
 
 
 if __name__ == '__main__':
