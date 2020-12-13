@@ -12,6 +12,6 @@ matplotlib>=1.4.3
 pandas>=0.19
 gevent
 timm
-https://download.pytorch.org/whl/cpu/torch-1.7.1%2Bcpu-cp38-cp38-linux_x86_64.whl
+https://download.pytorch.org/whl/cpu/torch-1.7.1%2Bcpu-cp37-cp37m-linux_x86_64.whl
 OpenCV-python
 albumentations
