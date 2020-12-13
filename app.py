@@ -18,13 +18,13 @@ from gevent.pywsgi import WSGIServer
 # Define a flask app
 app = Flask(__name__)
 
-model = torch.load("hack.pth")
+model = torch.load("hack909.pth")
 model.eval()
 def model_predict(img_path, model):
     image = Image.open(img_path)
     image = np.array(image)
     transforms = aug.Compose([
-            aug.Resize(384,384),
+            aug.Resize(224,224),
             aug.Normalize((0.485, 0.456, 0.406),(0.229, 0.224, 0.225),max_pixel_value=255.0,always_apply=True),
             ])
     image = transforms(image=image)["image"]
