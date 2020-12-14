@@ -1,4 +1,3 @@
-python3.7
 Flask==1.1.1
 gunicorn==19.9.0
 itsdangerous==1.1.0
@@ -11,7 +10,7 @@ scikit-learn>=0.18
 matplotlib>=1.4.3
 pandas>=0.19
 gevent
-timm
-https://download.pytorch.org/whl/cpu/torch-1.7.1%2Bcpu-cp37-cp37m-linux_x86_64.whl
+efficientnet_pytorch
+https://download.pytorch.org/whl/cpu/torch-1.7.1%2Bcpu-cp36-cp36m-linux_x86_64.whl
 OpenCV-python
 albumentations
