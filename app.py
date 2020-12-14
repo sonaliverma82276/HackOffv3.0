@@ -8,7 +8,7 @@ import numpy as np
 import torch
 from PIL import Image
 import albumentations as aug
-
+from efficientnet_pytorch import EfficientNet
 
 # Flask utils
 from flask import Flask, redirect, url_for, request, render_template
@@ -18,7 +18,8 @@ from gevent.pywsgi import WSGIServer
 # Define a flask app
 app = Flask(__name__)
 
-model = torch.load("hack909.pth")
+# model = torch.load("hack909.pth")
+model = EfficientNet.from_pretrained('efficientnet-b0',num_classes=17)
 model.eval()
 def model_predict(file, model):
     image = Image.open(file)
