@@ -35,12 +35,16 @@ def model_predict(file, model):
     preds = np.argmax(preds.detach())
     return preds
 
-
 @app.route('/')
-def index():
+def home():
     # Main page
-    return render_template('index.html')
+    return render_template('home.html')
 
+
+@app.route('/imageUpload',methods=['GET])
+def index():
+    # image upload page
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def upload():
