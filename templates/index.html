@@ -1,5 +1,29 @@
 {% extends "base.html" %} {% block content %}
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+      <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyA-SI9K3d8eP3JM-OI2ZAwemVjuNOLtedg",
+    authDomain: "skinegy-d4fb1.firebaseapp.com",
+    databaseURL: "https://skinegy-d4fb1-default-rtdb.firebaseio.com",
+    projectId: "skinegy-d4fb1",
+    storageBucket: "skinegy-d4fb1.appspot.com",
+    messagingSenderId: "755289752228",
+    appId: "1:755289752228:web:30860161fa5c30cac99c31"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
 <h2>Please Choose the ECG Image file</h2>
 
 <div>
@@ -7,19 +31,18 @@
         <label for="imageUpload" class="upload-label">
             Choose...
         </label>
-        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
-    </form>
+        <input type="file" name="file" id="imageUpload" accept="image/*">
 
-    <div class="image-section" style="display:none;">
+    <div class="image-section">
         <div class="img-preview">
             <div id="imagePreview">
             </div>
         </div>
         <div>
-            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
+            <button type="button" class="btn btn-primary btn-lg " onclick="save()" id="btn-predict">Predict!</button>
         </div>
     </div>
-
+ </form>
     <div class="loader" style="display:none;"></div>
 
     <h3 id="result">
@@ -27,5 +50,27 @@
     </h3>
 
 </div>
+
+<script type="text/javascript">
+  // Initialize Firebase
+  
+  var storage = firebase.storage();
+        function save(){
+            var image=document.getElementById("imageUpload").files[0];
+            var imagename=image.name;
+            var storageRef = storage.ref('images/'+imagename);
+            var uploadtask=storageRef.put(image);
+            uploadtask.on('state_changed',function(snapshot){
+                var progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                console.log("upload is "+progress+" done");
+            },function(error){
+                console.log(error.message);
+            },function(){
+                uploadtask=snapshot.ref.getDownloadURL().then(function(downloadURL){
+                    console.log(downloadURL);
+                });
+            });
+        }
+    </script>
 
 {% endblock %}
